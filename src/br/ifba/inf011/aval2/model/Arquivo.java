@@ -3,15 +3,24 @@ package br.ifba.inf011.aval2.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import br.ifba.inf011.aval2.model.bridge.Conversor;
 import br.ifba.inf011.aval2.model.composite.AbstractEntrada;
 
 public class Arquivo extends AbstractEntrada implements EntradaOperavel{
-	
+
+	private Conversor conversor;
 	private String conteudo;
+
+	public Arquivo(String nome, LocalDate dataCriacao, String conteudo, Conversor conversor) {
+		super(nome, dataCriacao);
+		this.conversor = conversor;
+		this.conteudo = this.conversor.encode(conteudo);
+	}
 
 	public Arquivo(String nome, LocalDate dataCriacao, String conteudo) {
 		super(nome, dataCriacao);
 		this.conteudo =  conteudo;
+		this.conversor = new Conversor2Text();
 	}
 
 	@Override
@@ -36,12 +45,12 @@ public class Arquivo extends AbstractEntrada implements EntradaOperavel{
 	
 	@Override
 	public String ler(Credencial credencial) throws IllegalAccessException{
-		return this.conteudo;
+		return this.conversor.decode(this.conteudo);
 	}
 
 	@Override
 	public void escrever(Credencial credencial, String conteudo) throws IllegalAccessException {
-		this.conteudo = conteudo; 
+		this.conteudo = this.conversor.encode(conteudo);
 	}
 
 	@Override

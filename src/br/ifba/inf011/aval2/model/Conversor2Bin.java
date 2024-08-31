@@ -1,8 +1,11 @@
 package br.ifba.inf011.aval2.model;
 
+import br.ifba.inf011.aval2.model.bridge.Conversor;
+
+
 import java.text.DecimalFormat;
 
-public class Conversor2Bin {
+public class Conversor2Bin extends Conversor {
 	
 	public static int BIN_BLOCK_SIZE = 8;
 	
@@ -37,6 +40,15 @@ public class Conversor2Bin {
 	    Integer numPalavra = Integer.parseInt(binario, 2);
 	    String characters = Character.toString(numPalavra);
 		return characters.charAt(0);		
-	}	
+	}
 
+	@Override
+	public String encode(String string) {
+		return this.toBinary(string);
+	}
+
+	@Override
+	public String decode(String string) {
+		return this.toASCII(string);
+	}
 }
