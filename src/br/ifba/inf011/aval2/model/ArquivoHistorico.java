@@ -1,6 +1,7 @@
 package br.ifba.inf011.aval2.model;
 
 import br.ifba.inf011.aval2.model.bridge.Conversor;
+import br.ifba.inf011.aval2.model.state.Arquivo;
 
 import java.time.LocalDate;
 

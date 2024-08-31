@@ -3,6 +3,8 @@ package br.ifba.inf011.aval2;
 import java.time.LocalDate;
 
 import br.ifba.inf011.aval2.model.*;
+import br.ifba.inf011.aval2.model.state.*;
+import br.ifba.inf011.aval2.model.state.Arquivo;
 
 public class App {
 	
@@ -63,11 +65,107 @@ public class App {
 		System.out.println("D1: " + d1.ler(user01));
 		System.out.println("D1 (dump): " + d1.dump());
 	}
-	
+
+	private void runMetodosArquivos() {
+
+		Credencial user01 = new Credencial("user01");
+		Arquivo a1 = new Arquivo("A1", LocalDate.now(), "00011000100011100000011111110101", new Conversor2Bin());
+
+		try {
+			System.out.println("A1: " + a1.ler(user01));
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível ler de a1");
+		}
+
+		a1.setState(new BloqueadoArquivo());
+
+		try {
+			a1.escrever(user01, "Tentando escrever no bloqueado");
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível escrever a1 no estado bloqueado");
+		}
+
+		try {
+			a1.ler(user01);
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível ler a1 no estado bloqueado");
+		}
+
+		a1.setState(new SomenteLeituraArquivo());
+
+		try {
+			a1.escrever(user01, "Escrevendo no somente leitura");
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível escrever a1 no estado somente leitura");
+		}
+	}
+
+	private void runMudancaEstado() {
+
+		Credencial user01 = new Credencial("user01");
+		Arquivo a1 = new Arquivo("A1", LocalDate.now(), "00011000100011100000011111110101", new Conversor2Bin());
+
+		try {
+			System.out.println("A1: " + a1.ler(user01));
+			// Lendo o arquivo no estado normal
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível ler a1");
+		}
+
+		a1.bloquear();
+
+		try {
+			System.out.println("A1: " + a1.ler(user01));
+			// Lendo o arquivo no estado bloqueado
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível ler a1 no estado bloqueado");
+		}
+
+		a1.liberar();
+
+		try {
+			System.out.println("A1: " + a1.ler(user01));
+			// Lendo o arquivo no estado normal
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível ler a1");
+		}
+
+		a1.somenteLeitura();
+
+		try {
+			a1.escrever(user01, "Tentando escrever no somente leitura");
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível escrever a1 no estado somente leitura");
+		}
+
+		a1.liberar();
+
+		try {
+			a1.escrever(user01, "Escrevendo no normal");
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível escrever a1 no estado normal");
+		}
+
+		try {
+			System.out.println("A1: " + a1.ler(user01));
+			// Lendo o arquivo no estado normal
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível ler a1");
+		}
+
+		a1.excluir();
+
+		try {
+			System.out.println("A1: " + a1.ler(user01));
+			// Lendo o arquivo no estado excluido
+		} catch (IllegalAccessException e) {
+			System.out.println("Não foi possível ler a1 no estado excluido");
+		}
+	}
 	
 	public static void main(String[] args) throws IllegalAccessException {
 		App app = new App();
-		app.runQ1();
+		app.runMudancaEstado();
 	}
 
 }
