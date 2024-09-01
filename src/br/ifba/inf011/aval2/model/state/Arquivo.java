@@ -110,6 +110,10 @@ public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 		this.state.liberar();
 	}
 
+	/*
+	 * - snapshot(): Método que cria um Memento do estado atual do objeto e retorna um NarrowArquivo
+	 *  (Memento estreito) para que o Caretaker possa armazenar.
+	 */
 	public NarrowArquivo snapshot() {
 		return new ArquivoSnapshot(
 			this.conversor,
@@ -118,6 +122,11 @@ public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 		);
 	}
 
+	/*
+	 * - restore(NarrowArquivo snapshot): Método que recebe um Memento sem métodos e restaura o estado do objeto para o estado do Memento.
+	 *
+	 * 	O Memento sem métodos (NarrowArquivo) é convertido em um Memento (WideArquivo) para que o objeto possa acessar as informações do Memento.
+	 */
 	public void restore(NarrowArquivo snapshot) {
 		WideArquivo wideArquivo = (WideArquivo) snapshot;
 		this.conversor = wideArquivo.getConversor();

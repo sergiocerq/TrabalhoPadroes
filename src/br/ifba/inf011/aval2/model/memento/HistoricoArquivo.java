@@ -6,6 +6,11 @@ import br.ifba.inf011.aval2.model.state.Arquivo;
 
 import java.util.Stack;
 
+/*
+ * Design Pattern Memento
+ *
+ * - HistoricoArquivo: Caretaker que armazena os Mementos de um Arquivo
+ */
 public class HistoricoArquivo implements Operavel {
 
   private Arquivo arquivo;

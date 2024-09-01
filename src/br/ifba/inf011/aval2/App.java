@@ -7,6 +7,19 @@ import br.ifba.inf011.aval2.model.memento.HistoricoArquivo;
 import br.ifba.inf011.aval2.model.state.*;
 import br.ifba.inf011.aval2.model.state.Arquivo;
 
+/*
+ * Design Pattern Memento
+ *
+ * - NarrowArquivo: Interface que não possui métodos, utilizada para identificar um Memento
+ * - WideArquivo: Interface que possui métodos para obter informações do Memento
+ * - ArquivoSnapshot: Memento que armazena o estado de um Arquivo
+ * - HistoricoArquivo: Caretaker que armazena os Mementos
+ *
+ * @description - A interface NarrowArquivo permite referenciar o memento sem expor os métodos, garandindo uma grande segurança, um código limpo, seguro e modular.
+ * @description - A interface WideArquivo permite obter informações do memento, como o conteúdo, o estado e o conversor, sendo utilizada somente pelo Caretaker.
+ * @description - O Caretaker é responsável por armazenar os mementos e realizar as operações de checkpoint e undo.
+ * @description - O Memento é responsável por armazenar o estado de um objeto, permitindo que ele seja restaurado posteriormente.
+ */
 public class App {
 
 	public void runQ1() throws IllegalAccessException  {
