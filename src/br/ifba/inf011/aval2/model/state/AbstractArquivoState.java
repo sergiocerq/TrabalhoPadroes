@@ -15,19 +15,19 @@ public abstract class AbstractArquivoState implements ArquivoState {
   }
 
   @Override
-  public Long tamanho(Arquivo arquivo) throws IllegalAccessException{
-    return arquivo.getTamanho();
+  public Long tamanho(String conteudo) {
+    return (long) conteudo.length();
   }
 
   @Override
-  public abstract void somenteLeitura(Arquivo arquivo);
+  public void somenteLeitura(Arquivo arquivo){}
   @Override
-  public abstract void bloquear(Arquivo arquivo);
+  public void bloquear(Arquivo arquivo){}
   @Override
-  public abstract void excluir(Arquivo arquivo);
+  public void excluir(Arquivo arquivo){}
   @Override
-  public abstract void restaurar(Arquivo arquivo);
+  public void restaurar(Arquivo arquivo){}
   @Override
-  public abstract void liberar(Arquivo arquivo);
+  public void liberar(Arquivo arquivo){}
 
 }

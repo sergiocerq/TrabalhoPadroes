@@ -17,12 +17,4 @@ public class EstadoNormalArquivo extends AbstractArquivoState{
     arquivo.setState(new ExcluidoArquivo());
   }
 
-  @Override
-  public void restaurar(Arquivo arquivo) {
-
-  }
-
-  @Override
-  public void liberar(Arquivo arquivo) {}
-
 }

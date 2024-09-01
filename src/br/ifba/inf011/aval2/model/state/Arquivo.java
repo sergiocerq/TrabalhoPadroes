@@ -47,9 +47,9 @@ public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 	}
 
 	@Override
-	public Long getTamanho() throws IllegalAccessException{
+	public Long getTamanho() {
 		//return Long.valueOf(this.conteudo.length());
-		return this.state.tamanho(this);
+		return this.state.tamanho(this.conteudo);
 	}
 	
 	@Override

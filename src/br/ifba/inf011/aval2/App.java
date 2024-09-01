@@ -167,6 +167,7 @@ public class App {
 	private void runWithMementos() {
 		Credencial user01 = new Credencial("user01");
 		Arquivo a1 = new Arquivo("A1", LocalDate.now(), "00011000100011100000011111110101", new Conversor2Bin());
+		Arquivo b1 = new Arquivo("B1", LocalDate.now(), "CINCO");
 
 		HistoricoArquivo historicoArquivo = new HistoricoArquivo(a1);
 		// Estado normal
@@ -174,28 +175,26 @@ public class App {
 		historicoArquivo.checkpoint();
 		// Salvando o estado normal
 
-		a1.bloquear();
-		// Atualizando para o estado bloqueado
-		a1.somenteLeitura();
-		// Não faz nada, pois o estado anterior é bloqueado
+		a1.bloquear(); // Atualizando para o estado bloqueado
 
-		historicoArquivo.checkpoint();
-		// Salva o arquivo no estado bloqueado
+		a1.somenteLeitura(); // Não faz nada, pois o estado anterior é bloqueado
 
-		// Lança uma excessão pois o arquivo está bloqueado
-		//try {
-		//	System.out.println("A1: " + a1.ler(user01));
-		//} catch (IllegalAccessException e) {
-		//	throw new RuntimeException(e);
-		//}
+		historicoArquivo.checkpoint(); // Salva o arquivo no estado bloqueado
 
-		//a1.liberar();
 
-		//historicoArquivo.checkpoint();
+		try {
+			System.out.println("A1: " + a1.ler(user01));// Lança uma excessão pois o arquivo está bloqueado
+		} catch (IllegalAccessException e) {
+			System.out.println(e.toString());
+		}
+		System.out.println("A1 (tamanho): " + a1.getTamanho());
+
+		a1.liberar();
+
 		try {
 			System.out.println("A1: " + a1.ler(user01));
 		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.toString());
 		}
 
 		// Lança uma excessão pois o arquivo está bloquado
@@ -203,7 +202,27 @@ public class App {
 		try {
 			System.out.println("A1: " + a1.ler(user01));
 		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
+			System.out.println(e.toString());
+		}
+
+
+		System.out.println("B1 (tamanho): " + b1.getTamanho());
+		b1.excluir();
+		System.out.println("B1 (tamanho): " + b1.getTamanho());
+		a1.bloquear();
+
+		try {
+			System.out.println("Tentando ler em B1");
+			System.out.println("B1: " + b1.ler(user01));
+		} catch (IllegalAccessException e) {
+			System.out.println(e.toString());
+		}
+
+		try {
+			System.out.println("Tentando escrever em B1");
+			b1.escrever(user01, "teste");
+		} catch (IllegalAccessException e) {
+			System.out.println(e.toString());
 		}
   }
 	

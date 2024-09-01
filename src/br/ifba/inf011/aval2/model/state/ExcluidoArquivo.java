@@ -6,33 +6,23 @@ public class ExcluidoArquivo extends AbstractArquivoState{
 
   @Override
   public String ler(Arquivo arquivo, Credencial credencial) throws IllegalAccessException{
-    throw new IllegalAccessException("Arquivo excluído.");
+    throw new IllegalAccessException("Não foi possível ler o arquivo: Arquivo excluído.");
   }
 
   @Override
   public void escrever(Arquivo arquivo, Credencial credencial, String conteudo) throws IllegalAccessException{
-    throw new IllegalAccessException("Arquivo excluído.");
+    throw new IllegalAccessException("Não foi possível escrever no arquivo: Arquivo excluído.");
   }
 
   @Override
-  public Long tamanho(Arquivo arquivo){
+  public Long tamanho(String conteudo){
     return 0L;
   }
 
-  @Override
-  public void somenteLeitura(Arquivo arquivo) {}
-
-  @Override
-  public void bloquear(Arquivo arquivo) {}
-
-  @Override
-  public void excluir(Arquivo arquivo) {}
 
   @Override
   public void restaurar(Arquivo arquivo) {
     arquivo.setState(new EstadoNormalArquivo());
   }
 
-  @Override
-  public void liberar(Arquivo arquivo) {}
 }
