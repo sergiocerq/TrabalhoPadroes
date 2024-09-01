@@ -8,8 +8,7 @@ import br.ifba.inf011.aval2.model.state.*;
 import br.ifba.inf011.aval2.model.state.Arquivo;
 
 public class App {
-	
-	
+
 	public void runQ1() throws IllegalAccessException  {
 		
 		Credencial user01 = new Credencial("user01");
