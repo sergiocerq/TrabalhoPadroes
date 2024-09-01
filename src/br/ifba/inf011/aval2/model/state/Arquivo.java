@@ -9,6 +9,9 @@ import br.ifba.inf011.aval2.model.Entrada;
 import br.ifba.inf011.aval2.model.EntradaOperavel;
 import br.ifba.inf011.aval2.model.bridge.Conversor;
 import br.ifba.inf011.aval2.model.composite.AbstractEntrada;
+import br.ifba.inf011.aval2.model.memento.ArquivoSnapshot;
+import br.ifba.inf011.aval2.model.memento.NarrowArquivo;
+import br.ifba.inf011.aval2.model.memento.WideArquivo;
 
 public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 
@@ -104,5 +107,20 @@ public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 
 	public void liberar() {
 		this.state.liberar(this);
+	}
+
+	public NarrowArquivo snapshot() {
+		return new ArquivoSnapshot(
+			this.conversor,
+			this.conteudo,
+			this.state
+		);
+	}
+
+	public void restore(NarrowArquivo snapshot) {
+		WideArquivo wideArquivo = (WideArquivo) snapshot;
+		this.conversor = wideArquivo.getConversor();
+		this.conteudo = wideArquivo.getConteudo();
+		this.state = wideArquivo.getState();
 	}
 }

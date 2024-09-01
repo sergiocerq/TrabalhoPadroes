@@ -3,6 +3,7 @@ package br.ifba.inf011.aval2;
 import java.time.LocalDate;
 
 import br.ifba.inf011.aval2.model.*;
+import br.ifba.inf011.aval2.model.memento.HistoricoArquivo;
 import br.ifba.inf011.aval2.model.state.*;
 import br.ifba.inf011.aval2.model.state.Arquivo;
 
@@ -162,10 +163,53 @@ public class App {
 			System.out.println("Não foi possível ler a1 no estado excluido");
 		}
 	}
+
+	private void runWithMementos() {
+		Credencial user01 = new Credencial("user01");
+		Arquivo a1 = new Arquivo("A1", LocalDate.now(), "00011000100011100000011111110101", new Conversor2Bin());
+
+		HistoricoArquivo historicoArquivo = new HistoricoArquivo(a1);
+		// Estado normal
+
+		historicoArquivo.checkpoint();
+		// Salvando o estado normal
+
+		a1.bloquear();
+		// Atualizando para o estado bloqueado
+		a1.somenteLeitura();
+		// Não faz nada, pois o estado anterior é bloqueado
+
+		historicoArquivo.checkpoint();
+		// Salva o arquivo no estado bloqueado
+
+		// Lança uma excessão pois o arquivo está bloqueado
+		//try {
+		//	System.out.println("A1: " + a1.ler(user01));
+		//} catch (IllegalAccessException e) {
+		//	throw new RuntimeException(e);
+		//}
+
+		//a1.liberar();
+
+		//historicoArquivo.checkpoint();
+		try {
+			System.out.println("A1: " + a1.ler(user01));
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+
+		// Lança uma excessão pois o arquivo está bloquado
+		historicoArquivo.undo();
+		try {
+			System.out.println("A1: " + a1.ler(user01));
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+  }
 	
 	public static void main(String[] args) throws IllegalAccessException {
 		App app = new App();
-		app.runMudancaEstado();
+		app.runWithMementos();
 	}
 
 }
