@@ -78,7 +78,7 @@ public class App {
 			System.out.println("Não foi possível ler de a1");
 		}
 
-		a1.setState(new BloqueadoArquivo());
+		a1.bloquear();
 
 		try {
 			a1.escrever(user01, "Tentando escrever no bloqueado");
@@ -92,7 +92,7 @@ public class App {
 			System.out.println("Não foi possível ler a1 no estado bloqueado");
 		}
 
-		a1.setState(new SomenteLeituraArquivo());
+		a1.somenteLeitura();
 
 		try {
 			a1.escrever(user01, "Escrevendo no somente leitura");
@@ -205,7 +205,12 @@ public class App {
 			System.out.println(e.toString());
 		}
 
-
+		try {
+			System.out.println("Tentando ler em B1");
+			System.out.println("B1: " + b1.ler(user01));
+		} catch (IllegalAccessException e) {
+			System.out.println(e.toString());
+		}
 		System.out.println("B1 (tamanho): " + b1.getTamanho());
 		b1.excluir();
 		System.out.println("B1 (tamanho): " + b1.getTamanho());

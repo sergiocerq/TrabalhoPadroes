@@ -1,15 +1,14 @@
 package br.ifba.inf011.aval2.model.state;
 
 import br.ifba.inf011.aval2.model.Credencial;
+import br.ifba.inf011.aval2.model.Operavel;
 
-public interface ArquivoState {
-  String ler(Arquivo arquivo, Credencial credencial) throws IllegalAccessException;
-  void escrever(Arquivo arquivo, Credencial credencial, String conteudo) throws IllegalAccessException;
+//State
+public interface ArquivoState extends Operavel {
   Long tamanho(String conteudo) ;
-
-  void somenteLeitura(Arquivo arquivo);
-  void bloquear(Arquivo arquivo);
-  void excluir(Arquivo arquivo);
-  void restaurar(Arquivo arquivo);
-  void liberar(Arquivo arquivo);
+  void somenteLeitura();
+  void bloquear();
+  void excluir();
+  void restaurar();
+  void liberar();
 }

@@ -4,14 +4,25 @@ import br.ifba.inf011.aval2.model.Credencial;
 
 public abstract class AbstractArquivoState implements ArquivoState {
 
-  @Override
-  public String ler(Arquivo arquivo, Credencial credencial) throws IllegalAccessException {
-    return arquivo.getConversor().encode(arquivo.getConteudo());
+  protected Arquivo arquivo;
+
+  public AbstractArquivoState(Arquivo arquivo) {
+    this.arquivo = arquivo;
   }
 
   @Override
-  public void escrever(Arquivo arquivo, Credencial credencial, String conteudo) throws IllegalAccessException{
-    arquivo.setConteudo(conteudo);
+  public String dump() {
+    return "";
+  }
+
+  @Override
+  public String ler(Credencial credencial) throws IllegalAccessException {
+    return arquivo.getConversor().decode(arquivo.getConteudo());
+  }
+
+  @Override
+  public void escrever(Credencial credencial, String conteudo) throws IllegalAccessException{
+    arquivo.setConteudo(arquivo.getConversor().encode(conteudo));
   }
 
   @Override
@@ -20,14 +31,14 @@ public abstract class AbstractArquivoState implements ArquivoState {
   }
 
   @Override
-  public void somenteLeitura(Arquivo arquivo){}
+  public void somenteLeitura(){}
   @Override
-  public void bloquear(Arquivo arquivo){}
+  public void bloquear(){}
   @Override
-  public void excluir(Arquivo arquivo){}
+  public void excluir(){}
   @Override
-  public void restaurar(Arquivo arquivo){}
+  public void restaurar(){}
   @Override
-  public void liberar(Arquivo arquivo){}
+  public void liberar(){}
 
 }

@@ -4,6 +4,7 @@ import br.ifba.inf011.aval2.model.state.Arquivo;
 
 import java.util.Stack;
 
+//Caretaker no Memento
 public class HistoricoArquivo {
 
   private Arquivo arquivo;

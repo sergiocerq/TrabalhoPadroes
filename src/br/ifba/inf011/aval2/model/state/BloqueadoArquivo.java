@@ -2,20 +2,25 @@ package br.ifba.inf011.aval2.model.state;
 
 import br.ifba.inf011.aval2.model.Credencial;
 
+//ConcreteState
 public class BloqueadoArquivo extends AbstractArquivoState{
 
+  public BloqueadoArquivo(Arquivo arquivo) {
+    super(arquivo);
+  }
+
   @Override
-  public String ler(Arquivo arquivo, Credencial credencial) throws IllegalAccessException{
+  public String ler(Credencial credencial) throws IllegalAccessException{
     throw new IllegalAccessException("Não foi possível ler o arquivo: Arquivo bloqueado.");
   }
 
   @Override
-  public void escrever(Arquivo arquivo, Credencial credencial, String conteudo) throws IllegalAccessException{
+  public void escrever(Credencial credencial, String conteudo) throws IllegalAccessException{
     throw new IllegalAccessException("Não foi possível escrever no arquivo: Arquivo bloqueado.");
   }
 
   @Override
-  public void liberar(Arquivo arquivo) {
-    arquivo.setState(new EstadoNormalArquivo());
+  public void liberar() {
+    arquivo.setState(new EstadoNormalArquivo(this.arquivo));
   }
 }

@@ -2,15 +2,19 @@ package br.ifba.inf011.aval2.model.state;
 
 import br.ifba.inf011.aval2.model.Credencial;
 
+//ConcreteState
 public class ExcluidoArquivo extends AbstractArquivoState{
 
+  public ExcluidoArquivo(Arquivo arquivo) {
+    super(arquivo);
+  }
   @Override
-  public String ler(Arquivo arquivo, Credencial credencial) throws IllegalAccessException{
+  public String ler(Credencial credencial) throws IllegalAccessException{
     throw new IllegalAccessException("Não foi possível ler o arquivo: Arquivo excluído.");
   }
 
   @Override
-  public void escrever(Arquivo arquivo, Credencial credencial, String conteudo) throws IllegalAccessException{
+  public void escrever(Credencial credencial, String conteudo) throws IllegalAccessException{
     throw new IllegalAccessException("Não foi possível escrever no arquivo: Arquivo excluído.");
   }
 
@@ -21,8 +25,8 @@ public class ExcluidoArquivo extends AbstractArquivoState{
 
 
   @Override
-  public void restaurar(Arquivo arquivo) {
-    arquivo.setState(new EstadoNormalArquivo());
+  public void restaurar() {
+    arquivo.setState(new EstadoNormalArquivo(this.arquivo));
   }
 
 }

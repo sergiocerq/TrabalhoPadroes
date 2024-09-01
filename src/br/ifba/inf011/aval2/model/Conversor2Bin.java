@@ -5,6 +5,7 @@ import br.ifba.inf011.aval2.model.bridge.Conversor;
 
 import java.text.DecimalFormat;
 
+//ConcreteImplementor
 public class Conversor2Bin extends Conversor {
 	
 	public static int BIN_BLOCK_SIZE = 8;

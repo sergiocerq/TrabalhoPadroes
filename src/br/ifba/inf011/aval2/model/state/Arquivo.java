@@ -13,11 +13,12 @@ import br.ifba.inf011.aval2.model.memento.ArquivoSnapshot;
 import br.ifba.inf011.aval2.model.memento.NarrowArquivo;
 import br.ifba.inf011.aval2.model.memento.WideArquivo;
 
+//Context no State e Abstraction no Bridge
 public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 
 	private Conversor conversor;
 	private String conteudo;
-	private ArquivoState state = new EstadoNormalArquivo(); // Estado Inicial de um arquivo;
+	private ArquivoState state = new EstadoNormalArquivo(this); // Estado Inicial de um arquivo;
 
 	public Arquivo(String nome, LocalDate dataCriacao, String conteudo, Conversor conversor) {
 		super(nome, dataCriacao);
@@ -55,13 +56,13 @@ public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 	@Override
 	public String ler(Credencial credencial) throws IllegalAccessException {
 		//return this.conversor.decode(this.conteudo);
-		return this.state.ler(this, credencial);
+		return this.state.ler(credencial);
 	}
 
 	@Override
 	public void escrever(Credencial credencial, String conteudo) throws IllegalAccessException {
 		// this.conteudo = this.conversor.encode(conteudo);
-		this.state.escrever(this, credencial, conteudo);
+		this.state.escrever(credencial, conteudo);
 	}
 
 	@Override
@@ -90,23 +91,23 @@ public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 	}
 
 	public void somenteLeitura(){
-		this.state.somenteLeitura(this);
+		this.state.somenteLeitura();
 	}
 
 	public void bloquear() {
-		this.state.bloquear(this);
+		this.state.bloquear();
 	}
 
 	public void excluir() {
-		this.state.excluir(this);
+		this.state.excluir();
 	}
 
 	public void restaurar() {
-		this.state.restaurar(this);
+		this.state.restaurar();
 	}
 
 	public void liberar() {
-		this.state.liberar(this);
+		this.state.liberar();
 	}
 
 	public NarrowArquivo snapshot() {
