@@ -182,29 +182,30 @@ public class App {
 		Arquivo b1 = new Arquivo("B1", LocalDate.now(), "CINCO");
 
 		HistoricoArquivo historicoArquivo = new HistoricoArquivo(a1);
+
 		// Estado normal
 
 		historicoArquivo.checkpoint();
 		// Salvando o estado normal
 
-		a1.bloquear(); // Atualizando para o estado bloqueado
+		historicoArquivo.bloquear(); // Atualizando para o estado bloqueado
 
-		a1.somenteLeitura(); // Não faz nada, pois o estado anterior é bloqueado
+		historicoArquivo.somenteLeitura(); // Não faz nada, pois o estado anterior é bloqueado
 
 		historicoArquivo.checkpoint(); // Salva o arquivo no estado bloqueado
 
 
 		try {
-			System.out.println("A1: " + a1.ler(user01));// Lança uma excessão pois o arquivo está bloqueado
+			System.out.println("A1: " + historicoArquivo.ler(user01));// Lança uma excessão pois o arquivo está bloqueado
 		} catch (IllegalAccessException e) {
 			System.out.println(e.toString());
 		}
-		System.out.println("A1 (tamanho): " + a1.getTamanho());
+		System.out.println("A1 (tamanho): " + historicoArquivo.getTamanho());
 
-		a1.liberar();
+		historicoArquivo.liberar();
 
 		try {
-			System.out.println("A1: " + a1.ler(user01));
+			System.out.println("A1: " + historicoArquivo.ler(user01));
 		} catch (IllegalAccessException e) {
 			System.out.println(e.toString());
 		}
@@ -212,7 +213,7 @@ public class App {
 		// Lança uma excessão pois o arquivo está bloquado
 		historicoArquivo.undo();
 		try {
-			System.out.println("A1: " + a1.ler(user01));
+			System.out.println("A1: " + historicoArquivo.ler(user01));
 		} catch (IllegalAccessException e) {
 			System.out.println(e.toString());
 		}
@@ -246,6 +247,9 @@ public class App {
 	public static void main(String[] args) throws IllegalAccessException {
 		App app = new App();
 		app.runWithMementos();
+		app.runMetodosArquivos();
+		app.runMudancaEstado();
+		app.runQ1();
 	}
 
 }

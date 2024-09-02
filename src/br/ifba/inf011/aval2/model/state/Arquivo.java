@@ -78,7 +78,7 @@ public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 		return this.state;
 	}
 
-	protected Conversor getConversor() {
+	public Conversor getConversor() {
 		return this.conversor;
 	}
 
@@ -86,7 +86,7 @@ public class Arquivo extends AbstractEntrada implements EntradaOperavel {
 		this.conteudo = conteudo;
 	}
 
-	protected String getConteudo() {
+	public String getConteudo() {
 		return this.conteudo;
 	}
 
