@@ -15,6 +15,7 @@ import java.util.Stack;
  * Design Pattern Memento
  *
  * - HistoricoArquivo: Caretaker que armazena os Mementos de um Arquivo
+ * - Refined Abstraction no bridge
  */
 public class HistoricoArquivo extends Arquivo {
 
